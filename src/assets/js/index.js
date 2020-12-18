@@ -2,7 +2,7 @@ import css from '../css/index.css';
 require('../../index.html');
 import image from '../images/suit.jpg';
 import video from '../images/clown.mp4';
-var TRANSFORM_DOMAIN="https://vcxt1fzq20.execute-api.eu-west-2.amazonaws.com/dev";
+var TRANSFORM_DOMAIN="apipagemelt-prod.alexandermorton.co.uk";
 $(document).ready(function() {
   // var headerHeight = $('.navbar').outerHeight();
   $('#exploreButton a').click(function(e) {

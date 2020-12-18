@@ -5,16 +5,17 @@ window.addEventListener("load", function(){
   const url = urlParams.get('url');
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
-
   const image = new Image();
-  image.onload = dropBlackishPixels;
-
   image.src = url;
+  canvas.width = this.naturalWidth;
+  canvas.height = this.naturalHeight;
+  ctx.drawImage(this, 0, 0);
+  image.onload = function () {
+    window.addEventListener("scroll", dropBlackishPixels);
+    window.addEventListener("keydown", dripBlackishPixels);
+  };
 
   function dropBlackishPixels() {
-    canvas.width = this.naturalWidth;
-    canvas.height = this.naturalHeight;
-    ctx.drawImage(this, 0, 0);
     let id = ctx.getImageData(0, 0, canvas.width, canvas.height);
     function draw() {
       for(let i=0; i<id.width; i++) {
@@ -41,9 +42,6 @@ window.addEventListener("load", function(){
   }
 
   function dripBlackishPixels() {
-    canvas.width = this.naturalWidth;
-    canvas.height = this.naturalHeight;
-    ctx.drawImage(this, 0, 0);
     let id = ctx.getImageData(0, 0, canvas.width, canvas.height);
     function draw() {
       for(let i=0; i<id.width; i++) {
