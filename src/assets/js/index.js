@@ -25,12 +25,12 @@ $(document).ready(function() {
 
 $('#form').submit(function(event) {
   event.preventDefault();
-  var input = $('#form input');
+  var url = $('#form input').val();
   $( "#form button" ).html( "<span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>");
   $("#form button").prop('disabled', true);
-  console.log(input.val());
-  $.get( `${TRANSFORM_DOMAIN}/?url=${input.val()}`)
-  .done( function(data ) {
+  console.log(url);
+  $.get( `${TRANSFORM_DOMAIN}/?url=${url}`)
+  .done( function(data) {
     window.location.replace(`${window.location.hostname}/canvas?url=${data.body.url}`);
   })
   .fail(function() {

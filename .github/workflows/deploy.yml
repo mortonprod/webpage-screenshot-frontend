@@ -23,7 +23,7 @@ jobs:
         run: |
           npm install
           npm run build
-          aws s3 sync ./dist s3://s3-bucket-shot-frontend --cache-control 'no-cache'
+          aws s3 sync ./dist s3://s3-bucket-shot-frontend
           aws cloudfront create-invalidation --distribution-id $WEBPAGE_SITE_CF_ID --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
