@@ -31,7 +31,7 @@ $('#form').submit(function(event) {
   console.log(url);
   $.get( `${TRANSFORM_DOMAIN}/?url=${url}`)
   .done( function(data) {
-    window.location.replace(`${window.location.hostname}/canvas?url=${data.body.url}`);
+    window.location.replace(`${window.location.hostname}/canvas?url=${data.url}`);
   })
   .fail(function() {
     $( "#form button" ).html("");
