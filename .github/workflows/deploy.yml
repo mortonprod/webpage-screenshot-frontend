@@ -8,7 +8,7 @@ jobs:
     name: 'Build Frontend and push to s3'
     runs-on: ubuntu-latest
     container: 
-      image: deployment-image:v0.0.5
+      image: mortonprod/deployment-image:v0.0.5
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v1
