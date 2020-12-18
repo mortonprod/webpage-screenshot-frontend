@@ -1,0 +1,31 @@
+name: 'Webpage Screenshot Frontend'
+on:
+  push: 
+    tags:
+      - v*
+jobs:
+  frontend:
+    name: 'Build Frontend and push to s3'
+    runs-on: ubuntu-latest
+    container: 
+      image: deployment-image:v0.0.5
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v1
+        with: 
+          submodules: true
+          token: ${{ secrets.GITHUB_REPO_TOKEN }}
+      - name: 'Build and upload assets to s3'
+        #TODO: Need to automate getting. bucket id.
+        #TODO: Consider removing this since html to longer cached and goes directly to s3.
+          # aws cloudfront create-invalidation --distribution-id $WEBPAGE_SITE_CF_ID --paths "/*"
+        run: |
+          npm install
+          npm build
+          aws s3 sync ./dist s3://s3-webpage-screenshot-frontend --cache-control 'max-age=31536000' --exclude "*.html"
+          aws s3 sync ./dist s3://s3-webpage-screenshot-frontend --cache-control 'no-cache'
+          aws cloudfront create-invalidation --distribution-id $WEBPAGE_SITE_CF_ID --paths "/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          WEBPAGE_SITE_CF_ID: ${{ secrets.PERSONAL_SITE_CF_ID }}

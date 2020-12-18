@@ -1,0 +1,3 @@
+[submodule "cloudfrontEdge-s3-module"]
+	path = cloudfrontEdge-s3-module
+	url = https://github.com/mortonprod/cloudfrontEdge-s3-module
