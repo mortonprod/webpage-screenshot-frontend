@@ -26,6 +26,9 @@ $(document).ready(function() {
 $('#form').submit(function(event) {
   event.preventDefault();
   var url = $('#form input').val();
+  if(!/https:\/\//.test(url) && !/http:\/\//.test(url)){
+    url = 'https://' + url;
+  }
   $( "#form button" ).html( "<span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>");
   $("#form button").prop('disabled', true);
   console.log(url);
@@ -34,14 +37,15 @@ $('#form').submit(function(event) {
   $.get( `${TRANSFORM_DOMAIN}/?url=${url}&vw=${vw}&vh=${vh}`)
   .done( function(data) {
     sessionStorage.setItem('image', `${data.url}`)
-    window.location.replace(`https://${window.location.hostname}/canvas.html`);
+    window.location.assign(`https://${window.location.hostname}/canvas.html`);
   })
   .fail(function() {
-    $( "#form button" ).html("");
+    $( "#form > button" ).html( "Submit");
+    $("#form > button").prop('disabled', false);
     $("#form").append( "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"> Something went wrong with that domain. Try another... <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>");
-    $( ".close" ).click(function() {
-      $( "#form > button" ).html( "Submit");
-      $("#form > button").prop('disabled', false);
-    })
+    // $( ".close" ).click(function() {
+    //   $( "#form > button" ).html( "Submit");
+    //   $("#form > button").prop('disabled', false);
+    // })
   });
 });
