@@ -1,8 +1,10 @@
 import css from '../css/canvas.css';
 import html from '../../canvas.html';
 window.addEventListener("load", function(){
-  const urlParams = new URLSearchParams(window.location.search);
-  const url = urlParams.get('url');
+  url=sessionStorage.getItem('image')
+  if (url === null) {
+    window.location.replace(`https://${window.location.hostname}/index.html`)
+  }
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const image = new Image();
