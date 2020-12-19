@@ -7,10 +7,10 @@ window.addEventListener("load", function(){
   const ctx = canvas.getContext('2d');
   const image = new Image();
   image.src = url;
-  canvas.width = this.naturalWidth;
-  canvas.height = this.naturalHeight;
-  ctx.drawImage(this, 0, 0);
   image.onload = function () {
+    canvas.width = this.naturalWidth;
+    canvas.height = this.naturalHeight;
+    ctx.drawImage(this, 0, 0);
     window.addEventListener("scroll", dropBlackishPixels);
     window.addEventListener("keydown", dripBlackishPixels);
   };
