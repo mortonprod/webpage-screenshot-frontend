@@ -29,7 +29,7 @@ $('#form').submit(function(event) {
   if(!/https:\/\//.test(url) && !/http:\/\//.test(url)){
     url = 'https://' + url;
   }
-  $( "#form button" ).html( "<span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>");
+  $( "#form > button" ).html( "<span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>");
   $("#form button").prop('disabled', true);
   console.log(url);
   var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
