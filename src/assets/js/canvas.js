@@ -14,9 +14,9 @@ window.addEventListener("load", function(){
     canvas.width = this.naturalWidth;
     canvas.height = this.naturalHeight;
     ctx.drawImage(this, 0, 0);
-    window.addEventListener("scroll", dropBlackishPixels);
-    window.addEventListener("keydown", dripBlackishPixels);
-    window.addEventListener("click", dripBlackishPixels);
+    window.addEventListener("scroll", dropBlackishPixels, { once: true });
+    window.addEventListener("keydown", dripBlackishPixels, { once: true });
+    window.addEventListener("click", dripBlackishPixels, { once: true });
   };
 
   function dropBlackishPixels() {
