@@ -16,6 +16,7 @@ window.addEventListener("load", function(){
     ctx.drawImage(this, 0, 0);
     window.addEventListener("scroll", dropBlackishPixels);
     window.addEventListener("keydown", dripBlackishPixels);
+    window.addEventListener("click", dripBlackishPixels);
   };
 
   function dropBlackishPixels() {
