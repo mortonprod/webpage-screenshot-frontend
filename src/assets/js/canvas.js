@@ -1,7 +1,7 @@
 import css from '../css/canvas.css';
 import html from '../../canvas.html';
 window.addEventListener("load", function(){
-  url=sessionStorage.getItem('image')
+  var url=sessionStorage.getItem('image')
   if (url === null) {
     window.location.replace(`https://${window.location.hostname}/index.html`)
   }
