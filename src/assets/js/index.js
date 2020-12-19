@@ -29,7 +29,9 @@ $('#form').submit(function(event) {
   $( "#form button" ).html( "<span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>");
   $("#form button").prop('disabled', true);
   console.log(url);
-  $.get( `${TRANSFORM_DOMAIN}/?url=${url}`)
+  var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+  var vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+  $.get( `${TRANSFORM_DOMAIN}/?url=${url}&vw=${vw}&vh=${vh}`)
   .done( function(data) {
     sessionStorage.setItem('image', `${data.url}`)
     window.location.replace(`https://${window.location.hostname}/canvas.html`);
