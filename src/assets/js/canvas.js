@@ -8,6 +8,7 @@ window.addEventListener("load", function(){
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const image = new Image();
+  image.crossOrigin = "anonymous";
   image.src = url;
   image.onload = function () {
     canvas.width = this.naturalWidth;
