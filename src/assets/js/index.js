@@ -35,7 +35,7 @@ $('#form').submit(function(event) {
   console.log(url);
   var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
   var vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-  $.get( `${TRANSFORM_DOMAIN}/?url=${url}&vw=${vw}&vh=${vh}`)
+  $.get( `${TRANSFORM_DOMAIN}/?url=${encodeURIComponent(url)}&vw=${vw}&vh=${vh}`)
   .done( function(data) {
     sessionStorage.setItem('image', `${data.url}`)
     window.location.assign(`https://${window.location.hostname}/canvas.html`);
