@@ -2,6 +2,7 @@ import css from '../css/index.css';
 require('../../index.html');
 import image from '../images/suit.jpg';
 import video from '../images/clown.mp4';
+import fav from '../images/favicon.ico';
 var TRANSFORM_DOMAIN="https://apipagemelt-prod.alexandermorton.co.uk";
 $(document).ready(function() {
   // var headerHeight = $('.navbar').outerHeight();
