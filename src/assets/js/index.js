@@ -46,9 +46,5 @@ $('#form').submit(function(event) {
     if($('.alert-danger').length === 0) {
       $("#form").append( "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\"> Something went wrong with that domain. Try another... <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"> <span aria-hidden=\"true\">&times;</span> </button> </div>");
     }
-    // $( ".close" ).click(function() {
-    //   $( "#form > button" ).html( "Submit");
-    //   $("#form > button").prop('disabled', false);
-    // })
   });
 });
