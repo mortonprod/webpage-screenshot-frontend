@@ -531,6 +531,7 @@ footer p {
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.5px;
+    padding: 0px;
 }
 
 footer p a,
