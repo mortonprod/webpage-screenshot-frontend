@@ -1,31 +1,34 @@
 name: 'Webpage Screenshot Frontend'
 on:
-  push: 
+  push:
     tags:
       - v*
 jobs:
   frontend:
     name: 'Build Frontend and push to s3'
     runs-on: ubuntu-latest
-    container: 
-      image: mortonprod/deployment-image:v0.0.6
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@v1
-        with: 
-          submodules: true
-          token: ${{ secrets.GITHUB_REPO_TOKEN }}
-      - name: 'Build and upload assets to s3'
-        #TODO: Need to automate getting. bucket id.
-        #TODO: Consider removing this since html to longer cached and goes directly to s3.
-          # aws cloudfront create-invalidation --distribution-id $WEBPAGE_SITE_CF_ID --paths "/*"
-          # aws s3 sync ./dist s3://s3-bucket-shot-frontend --cache-control 'max-age=31536000' --exclude "*.html"
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 'Install dependencies'
+        run: npm ci
+
+      - name: 'Build frontend'
+        run: npm run build
+
+      - name: 'Sync assets to S3'
         run: |
-          npm install
-          npm run build
-          aws s3 sync ./dist s3://s3-bucket-shot-frontend
-          aws cloudfront create-invalidation --distribution-id $WEBPAGE_SITE_CF_ID --paths "/*"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          WEBPAGE_SITE_CF_ID: ${{ secrets.WEBPAGE_SITE_CF_ID }}
+          aws s3 sync ./dist s3://s3-bucket-shot-frontend --cache-control 'max-age=31536000' --exclude "*.html" --region us-east-1
+          aws s3 sync ./dist s3://s3-bucket-shot-frontend --cache-control 'no-cache' --region us-east-1
+
+      - name: 'Invalidate CloudFront cache'
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.WEBPAGE_SITE_CF_ID }} --paths "/*"

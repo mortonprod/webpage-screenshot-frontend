@@ -1,6 +1,6 @@
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
@@ -13,7 +13,13 @@ module.exports = {
     'jquery': 'jQuery'
   },
   plugins: [
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/index.html', to: 'index.html' },
+        { from: 'src/canvas.html', to: 'canvas.html' },
+      ]
+    })
   ],
   output: {
     filename: '[name].js',
@@ -22,58 +28,25 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/i,
-        use: [
-          'html-loader',
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            }
-          },
-        ]
-      },
-      {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            }
-          }
-        ]
+        type: 'asset/resource',
+        generator: { filename: '[name][ext]' }
       },
       {
         test: /\.mp4$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            }
-          }
-        ]
+        type: 'asset/resource',
+        generator: { filename: '[name][ext]' }
       },
       {
         test: /\.(png|jpg|gif|jpeg|ico)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            }
-          }
-        ],
+        type: 'asset/resource',
+        generator: { filename: '[name][ext]' }
       }
     ]
   },
   optimization: {
     minimizer: [
-      new TerserPlugin(),
-      new CssMinimizerPlugin({
-        test: /\.css$/i,
-      })
+      new TerserPlugin()
     ],
     splitChunks: {
       chunks: 'all'

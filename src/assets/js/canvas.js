@@ -1,5 +1,4 @@
 import css from '../css/canvas.css';
-import html from '../../canvas.html';
 window.addEventListener("load", function(){
   var url=sessionStorage.getItem('image')
   if (url === null) {

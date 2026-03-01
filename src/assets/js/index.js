@@ -1,5 +1,4 @@
 import css from '../css/index.css';
-require('../../index.html');
 import image from '../images/suit.jpg';
 import video from '../images/clown.mp4';
 import fav from '../images/favicon.ico';
@@ -32,7 +31,6 @@ $('#form').submit(function(event) {
   }
   $( "#form > button" ).html( "<span class=\"spinner-grow spinner-grow-sm\" role=\"status\" aria-hidden=\"true\"></span>");
   $("#form button").prop('disabled', true);
-  console.log(url);
   var vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
   var vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
   $.get( `${TRANSFORM_DOMAIN}/?url=${encodeURIComponent(url)}&vw=${vw}&vh=${vh}`)
