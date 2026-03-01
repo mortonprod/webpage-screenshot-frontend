@@ -1,4 +1,12 @@
 terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+    }
+  }
   backend "s3" {
     bucket         = "webpage-screenshot-frontend-state"
     key            = "webpage-screenshot-frontend-site"
