@@ -36,6 +36,16 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - name: 'Re-import resources with legacy state attributes'
+        run: |
+          terraform state rm 'module.cloudfrontEdge-s3-module.aws_cloudfront_distribution.cloudfront_distribution' || true
+          terraform import 'module.cloudfrontEdge-s3-module.aws_cloudfront_distribution.cloudfront_distribution' ED53IMNBFJBIS
+          terraform state rm 'module.cloudfrontEdge-s3-module.aws_route53_record.route53_record[0]' || true
+          terraform import 'module.cloudfrontEdge-s3-module.aws_route53_record.route53_record[0]' Z3EVN4UEER4WI3_pagemelt.alexandermorton.co.uk_A
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: 'Terraform Validate'
         run: terraform validate
 
